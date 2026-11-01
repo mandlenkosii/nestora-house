@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-charcoal: #292721;
+  --color-ivory: #e9e2d7;
+  --color-ivory-light: #f4f0ea;
+  --color-sand: #b7a48a;
+  --color-taupe: #746b5c;
+  --color-olive: #777c6c;
+
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-ivory-light font-sans text-charcoal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif font-normal;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  ::selection {
+    @apply bg-sand text-white;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .container-wide {
+    @apply mx-auto w-full max-w-[1480px] px-5 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-medium tracking-[0.22em] uppercase text-taupe;
+  }
+
+  .display-xl {
+    @apply font-serif text-[2.75rem] leading-[1.02] sm:text-6xl lg:text-[5.5rem];
+  }
+
+  .display-lg {
+    @apply font-serif text-4xl leading-[1.05] sm:text-5xl lg:text-6xl;
+  }
+
+  .display-md {
+    @apply font-serif text-3xl leading-[1.1] sm:text-4xl lg:text-[2.75rem];
+  }
+
+  .link-underline {
+    @apply relative inline-block;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-[-2px] left-0 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-500;
+  }
+  .link-underline:hover::after,
+  .link-underline[aria-current='page']::after {
+    @apply origin-left scale-x-100;
+  }
+
+  .field-input {
+    @apply w-full border-0 border-b border-charcoal/25 bg-transparent px-0 py-3 text-[15px] text-charcoal placeholder:text-taupe/60 transition-colors focus:border-charcoal focus:outline-none;
+  }
+  .field-input[aria-invalid='true'] {
+    @apply border-red-800/70;
+  }
+
+  .img-zoom {
+    @apply transition-transform duration-[1200ms] ease-soft;
+  }
+  .group:hover .img-zoom {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 1s var(--ease-soft) both;
+}
+.animate-fade-in {
+  animation: fade-in 0.4s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
